@@ -5,6 +5,7 @@ import Main from '@/components/Main';
 import { getDocumentById } from '@/db';
 import { notFound, } from 'next/navigation';
 import Link from 'next/link';
+import DocumentTypePill from '@/components/DocumentTypePill';
 
 export default async function Page({ params }: { params: { documentId: string } }) {
 
@@ -25,9 +26,7 @@ export default async function Page({ params }: { params: { documentId: string } 
           {document.title}
         </Heading>
         <div className="flex items-center mb-4">
-          <div className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
-            {document.type}
-          </div>
+          <DocumentTypePill type={document.type} />
           [<Link href={document.link} className="text-blue-500 text-sm hover:underline"
             target="_blank"
             rel="noopener noreferrer">

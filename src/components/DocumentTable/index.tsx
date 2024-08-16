@@ -1,6 +1,7 @@
 import { Document } from '@prisma/client';
 import Link from 'next/link';
 import React from 'react';
+import DocumentTypePill from '../DocumentTypePill';
 
 interface DocumentTableProps {
   documents: Document[];
@@ -36,7 +37,7 @@ const DocumentTable: React.FC<DocumentTableProps> = ({ documents }) => {
                 {document.description || 'N/A'}
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                {document.type}
+                <DocumentTypePill type={document.type} />
               </td>
               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                 <Link
