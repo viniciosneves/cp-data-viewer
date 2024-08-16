@@ -1,0 +1,39 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Media {
+  id          Int      @id @default(autoincrement())
+  description String?
+  link        String
+  type        String
+  documentId  Int
+  Document    Document @relation(fields: [documentId], references: [id])
+}
+
+model Document {
+  id          Int     @id @default(autoincrement())
+  title       String?
+  description String?
+  content     String?
+  type        String
+  link        String  @unique
+  media       Media[]
+  partnerId   Int
+  Partner     Partner @relation(fields: [partnerId], references: [id])
+
+  @@index([type], map: "type_idx")
+}
+
+model Partner {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique
+  description String?
+  documents   Document[]
+}
