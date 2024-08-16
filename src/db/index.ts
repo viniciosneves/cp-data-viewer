@@ -3,7 +3,11 @@ const db = new PrismaClient()
 
 export async function getAllPartners() {
 
-    return db.partner.findMany()
+    return db.partner.findMany({
+        include: {
+            _count: true
+        }
+    })
 }
 
 export async function getPartnerPyId(id: number) {
@@ -11,6 +15,9 @@ export async function getPartnerPyId(id: number) {
     return db.partner.findFirst({
         where: {
             id
+        },
+        include: {
+            _count: true
         }
     })
 }
@@ -45,6 +52,9 @@ export async function getPaginatedDocuments(
         take: perPage,
         skip,
         orderBy: { id: 'desc' },
+        include: {
+            _count: true
+        },
         where: {
             partnerId,
             type: type || undefined,

@@ -22,7 +22,7 @@ export default async function Page({ params, searchParams }: { params: { partner
     return (
         <Main>
             <Heading level={1}>
-                {partner.name}
+                {partner.name} ({partner._count.documents} documents)
             </Heading>
             <PartnerDescription partner={partner} />
             <hr />
